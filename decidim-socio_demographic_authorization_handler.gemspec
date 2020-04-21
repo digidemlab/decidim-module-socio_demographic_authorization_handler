@@ -5,7 +5,7 @@ $LOAD_PATH.push File.expand_path("lib", __dir__)
 require "decidim/socio_demographic_authorization_handler/version"
 
 Gem::Specification.new do |s|
-  s.version = Decidim::SocioDemographicAuthorizationHandler.version
+  s.version = Decidim::SocioDemographicAuthorizationHandler::VERSION
   s.authors = ["Armand"]
   s.email = ["fardeauarmand@gmail.com"]
   s.license = "AGPL-3.0"
@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,lib}/**/*", "LICENSE-AGPLv3.txt", "Rakefile", "README.md"]
 
-  s.add_dependency "decidim-core", Decidim::SocioDemographicAuthorizationHandler.version
+  s.add_dependency "decidim-core", Decidim::SocioDemographicAuthorizationHandler::DECIDIM_VERSION
 end
