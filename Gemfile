@@ -11,7 +11,7 @@ base_path = ""
 base_path = "../" if File.basename(__dir__) == "development_app"
 require_relative "#{base_path}lib/decidim/socio_demographic_authorization_handler/version"
 
-gem "decidim", git: "https://github.com/decidim/decidim", branch: Decidim::SocioDemographicAuthorizationHandler.decidim_version
+gem "decidim", Decidim::SocioDemographicAuthorizationHandler.decidim_version
 gem "decidim-socio_demographic_authorization_handler", path: "."
 
 gem "bootsnap", "~> 1.4"
@@ -23,7 +23,7 @@ group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
   gem "simplecov", "~> 0.19.0"
 
-  gem "decidim-dev", git: "https://github.com/decidim/decidim", branch: Decidim::SocioDemographicAuthorizationHandler.decidim_version
+  gem "decidim-dev", Decidim::SocioDemographicAuthorizationHandler.decidim_version
 end
 
 group :development do

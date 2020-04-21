@@ -1,0 +1,24 @@
+---
+sv:
+  decidim:
+    authorization_handlers:
+      socio_demographic_authorization_handler:
+        explanation: Fylla din profil med ytterligare information
+        fields:
+          age: Ålder
+          gender: Kön
+          scope_id: Område
+        name: Ytterligare information
+    verifications:
+      age_slice:
+        blank_option: Vänligen välj en åldersgrupp
+      genders:
+        blank_option: Vänligen välj en kön
+        man: Man
+        undefined: Annat
+        woman: Kvinna
+      scope_id:
+        blank_option: Vill inte säga
+  errors:
+    messages:
+      integer_only: Heltal bara
