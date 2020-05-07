@@ -3,12 +3,13 @@ sv:
   decidim:
     authorization_handlers:
       socio_demographic_authorization_handler:
-        explanation: Fylla din profil med ytterligare information
+        explanation: För att förbättra vår dialog skulle vi vilja veta lite mer om dig
+        privacy: Dessa uppgifter anonymeras direkt så de kan inte kopplas tillbaka till ditt konto.
         fields:
           age: Ålder
           gender: Kön
           scope_id: Område
-        name: Ytterligare information
+        name: Demografisk information
     verifications:
       age_slice:
         blank_option: Vänligen välj en åldersgrupp
