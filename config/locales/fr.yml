@@ -4,6 +4,7 @@ fr:
     authorization_handlers:
       socio_demographic_authorization_handler:
         explanation: Complétez les informations de votre profil
+        privacy: Ces informations sont anonymisées et ne peuvent pas être réassociées à votre compte.
         fields:
           age: Âge
           gender: Genre

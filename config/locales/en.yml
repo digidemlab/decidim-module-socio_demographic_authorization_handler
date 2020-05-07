@@ -4,6 +4,7 @@ en:
     authorization_handlers:
       socio_demographic_authorization_handler:
         explanation: Complete your profile with additional informations
+        privacy: This information is directly anonymised and cannot be linked back to your account.
         fields:
           age: Age
           gender: Gender

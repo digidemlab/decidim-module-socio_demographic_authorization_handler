@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors = ["Armand"]
   s.email = ["fardeauarmand@gmail.com"]
   s.license = "AGPL-3.0"
-  s.homepage = "https://github.com/decidim/decidim-module-socio_demographic_authorization_handler"
+  s.homepage = "https://github.com/OpenSourcePolitics/decidim-module-socio_demographic_authorization_handler"
   s.required_ruby_version = ">= 2.5"
 
   s.name = "decidim-socio_demographic_authorization_handler"
