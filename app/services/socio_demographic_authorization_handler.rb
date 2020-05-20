@@ -6,7 +6,7 @@ class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
   attribute :age, String
 
   GENDER = %w(woman man undefined).freeze
-  AGE_SLICE = %w(16-25 26-45 46-65 65+).freeze
+  AGE_SLICE = %w(16- 16-25 26-35 36-45 46-55 56-65 65+).freeze
 
   validates :gender,
             inclusion: { in: GENDER, if: proc { |x| x.gender.present? } },
