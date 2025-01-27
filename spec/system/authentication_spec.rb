@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "Authentication", type: :system do
+describe "Authentication" do
   let(:organization) { create(:organization, available_authorizations: ["socio_demographic_authorization_handler"]) }
   let(:last_user) { Decidim::User.last }
 
@@ -12,12 +12,12 @@ describe "Authentication", type: :system do
   end
 
   def log_in
-    click_link("Log in", match: :first)
+    click_on("Log in", match: :first)
   end
 
   def expect_current_user_to_be(user)
     within_user_menu do
-      click_link "My public profile"
+      click_on "My public profile"
     end
     expect(page).to have_content(user.name)
   end
@@ -25,7 +25,7 @@ describe "Authentication", type: :system do
   describe "Sign Up" do
     context "when using email and password" do
       it "creates a new User" do
-        click_link "Sign Up"
+        click_on "Sign Up"
 
         within ".new_user" do
           fill_in :registration_user_email, with: "user@example.org"
@@ -42,7 +42,7 @@ describe "Authentication", type: :system do
 
     context "when being a robot" do
       it "denies the sign up" do
-        click_link "Sign Up"
+        click_on "Sign Up"
 
         within ".new_user" do
           page.execute_script("$($('.new_user > div > input')[0]).val('Ima robot :D')")
@@ -54,7 +54,7 @@ describe "Authentication", type: :system do
           find("*[type=submit]").click
         end
 
-        expect(page).not_to have_content("You have signed up successfully")
+        expect(page).to have_no_content("You have signed up successfully")
       end
     end
 
@@ -82,9 +82,9 @@ describe "Authentication", type: :system do
 
       context "when the user has confirmed the email in facebook" do
         it "creates a new User without sending confirmation instructions" do
-          click_link "Sign Up"
+          click_on "Sign Up"
 
-          click_link "Log in with Facebook"
+          click_on "Log in with Facebook"
 
           expect(page).to have_content("Successfully")
           expect_user_logged
@@ -101,7 +101,7 @@ describe "Authentication", type: :system do
           info: {
             name: "Twitter User",
             nickname: "twitter_user",
-            email: email
+            email:
           }
         )
       end
@@ -118,9 +118,9 @@ describe "Authentication", type: :system do
 
       context "when the response doesn't include the email" do
         it "redirects the user to a finish signup page" do
-          click_link "Sign Up"
+          click_on "Sign Up"
 
-          click_link "Log in with X"
+          click_on "Log in with X"
 
           expect(page).to have_content("Successfully")
           expect(page).to have_content("Please complete your profile")
@@ -133,10 +133,10 @@ describe "Authentication", type: :system do
 
         context "and a user already exists with the given email" do
           it "doesn't allow it" do
-            create(:user, :confirmed, email: "user@from-twitter.com", organization: organization)
-            click_link "Sign Up"
+            create(:user, :confirmed, email: "user@from-twitter.com", organization:)
+            click_on "Sign Up"
 
-            click_link "Log in with X"
+            click_on "Log in with X"
 
             expect(page).to have_content("Successfully")
             expect(page).to have_content("Please complete your profile")
@@ -156,9 +156,9 @@ describe "Authentication", type: :system do
         let(:email) { "user@from-twitter.com" }
 
         it "creates a new User" do
-          click_link "Sign Up"
+          click_on "Sign Up"
 
-          click_link "Log in with X"
+          click_on "Log in with X"
 
           expect_user_logged
         end
@@ -188,9 +188,9 @@ describe "Authentication", type: :system do
       end
 
       it "creates a new User" do
-        click_link "Sign Up"
+        click_on "Sign Up"
 
-        click_link "Log in with Google"
+        click_on "Log in with Google"
 
         expect_user_logged
       end
@@ -201,19 +201,19 @@ describe "Authentication", type: :system do
 
       it "redirects to the sign in when accessing the sign up page" do
         visit decidim.new_user_registration_path
-        expect(page).not_to have_content("Sign Up")
+        expect(page).to have_no_content("Sign Up")
       end
 
       it "don't allow the user to sign up" do
         log_in
-        expect(page).not_to have_content("Create an account")
+        expect(page).to have_no_content("Create an account")
       end
     end
   end
 
   describe "Confirm email" do
     it "confirms the user" do
-      perform_enqueued_jobs { create(:user, organization: organization) }
+      perform_enqueued_jobs { create(:user, organization:) }
 
       visit last_email_link
 
@@ -224,7 +224,7 @@ describe "Authentication", type: :system do
   end
 
   context "when confirming the account" do
-    let!(:user) { create(:user, notifications_sending_frequency: true, organization: organization) }
+    let!(:user) { create(:user, notifications_sending_frequency: true, organization:) }
 
     before do
       perform_enqueued_jobs { user.confirm }
@@ -235,7 +235,7 @@ describe "Authentication", type: :system do
 
     it "sends a welcome notification" do
       within_user_menu do
-        click_link "Notifications"
+        click_on "Notifications"
       end
 
       within "#notifications" do
@@ -248,7 +248,7 @@ describe "Authentication", type: :system do
 
   describe "Resend confirmation instructions" do
     let(:user) do
-      perform_enqueued_jobs { create(:user, organization: organization) }
+      perform_enqueued_jobs { create(:user, organization:) }
     end
 
     it "sends an email with the instructions" do
@@ -265,7 +265,7 @@ describe "Authentication", type: :system do
   end
 
   context "when a user is already registered" do
-    let(:user) { create(:user, :confirmed, password: "DfyvHn425mYAy2HL", organization: organization) }
+    let(:user) { create(:user, :confirmed, password: "DfyvHn425mYAy2HL", organization:) }
 
     describe "Log in" do
       it "authenticates an existing User" do
@@ -321,7 +321,7 @@ describe "Authentication", type: :system do
 
       it "signs out the user" do
         within_user_menu do
-          click_link "Log out"
+          click_on "Log out"
         end
 
         expect(page).to have_content("Logged out successfully.")
@@ -331,8 +331,8 @@ describe "Authentication", type: :system do
   end
 
   context "when a user is already registered with a social provider" do
-    let(:user) { create(:user, :confirmed, organization: organization) }
-    let(:identity) { create(:identity, user: user, provider: "facebook", uid: "12345") }
+    let(:user) { create(:user, :confirmed, organization:) }
+    let(:identity) { create(:identity, user:, provider: "facebook", uid: "12345") }
 
     let(:omniauth_hash) do
       OmniAuth::AuthHash.new(
@@ -360,7 +360,7 @@ describe "Authentication", type: :system do
       it "authenticates an existing User" do
         log_in
 
-        click_link "Log in with Facebook"
+        click_on "Log in with Facebook"
 
         expect_current_user_to_be(user)
       end
@@ -371,7 +371,7 @@ describe "Authentication", type: :system do
         it "doesn't allow the user to sign up" do
           log_in
 
-          expect(page).not_to have_content("Sign Up")
+          expect(page).to have_no_content("Sign Up")
         end
       end
 
@@ -381,20 +381,20 @@ describe "Authentication", type: :system do
         it "doesn't allow the user to sign up" do
           log_in
 
-          expect(page).not_to have_content("Sign Up")
+          expect(page).to have_no_content("Sign Up")
         end
 
         it "doesn't allow the user to sign in as a regular user, only through external accounts" do
           log_in
 
-          expect(page).not_to have_content("Email")
+          expect(page).to have_no_content("Email")
           expect(page).to have_css(".button--facebook")
         end
 
         it "authenticates an existing User" do
           log_in
 
-          click_link "Log in with Facebook"
+          click_on "Log in with Facebook"
 
           expect_current_user_to_be(user)
         end
@@ -408,7 +408,7 @@ describe "Authentication", type: :system do
     describe "Sign Up" do
       context "when using the same email" do
         it "creates a new User" do
-          click_link "Sign Up"
+          click_on "Sign Up"
 
           within ".new_user" do
             fill_in :registration_user_email, with: user.email
@@ -427,7 +427,7 @@ describe "Authentication", type: :system do
 
   context "when a user is already registered in another organization with the same fb account" do
     let(:user) { create(:user, :confirmed) }
-    let(:identity) { create(:identity, user: user, provider: "facebook", uid: "12345") }
+    let(:identity) { create(:identity, user:, provider: "facebook", uid: "12345") }
 
     let(:omniauth_hash) do
       OmniAuth::AuthHash.new(
@@ -454,9 +454,9 @@ describe "Authentication", type: :system do
     describe "Sign Up" do
       context "when the user has confirmed the email in facebook" do
         it "creates a new User without sending confirmation instructions" do
-          click_link "Sign Up"
+          click_on "Sign Up"
 
-          click_link "Log in with Facebook"
+          click_on "Log in with Facebook"
 
           expect(page).to have_content("Successfully")
           expect_user_logged
@@ -469,7 +469,7 @@ describe "Authentication", type: :system do
     let(:organization2) { create(:organization) }
 
     let!(:user2) { create(:user, :confirmed, email: "fake@user.com", name: "Wrong user", organization: organization2, password: "DfyvHn425mYAy2HL") }
-    let!(:user) { create(:user, :confirmed, email: "fake@user.com", name: "Right user", organization: organization, password: "DfyvHn425mYAy2HL") }
+    let!(:user) { create(:user, :confirmed, email: "fake@user.com", name: "Right user", organization:, password: "DfyvHn425mYAy2HL") }
 
     describe "Log in" do
       it "authenticates the right user" do

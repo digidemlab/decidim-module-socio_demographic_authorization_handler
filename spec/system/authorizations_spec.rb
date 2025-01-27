@@ -8,7 +8,7 @@ describe "Authorizations", with_authorization_workflows: ["dummy_authorization_h
   end
 
   context "when a new user" do
-    let(:organization) { create :organization, available_authorizations: authorizations }
+    let(:organization) { create(:organization, available_authorizations: authorizations) }
 
     let(:user) { create(:user, :confirmed, organization:) }
 
@@ -65,7 +65,7 @@ describe "Authorizations", with_authorization_workflows: ["dummy_authorization_h
   end
 
   context "when existing user from her account" do
-    let(:organization) { create :organization, available_authorizations: authorizations }
+    let(:organization) { create(:organization, available_authorizations: authorizations) }
     let(:user) { create(:user, :confirmed, organization:) }
 
     before do
@@ -170,7 +170,7 @@ describe "Authorizations", with_authorization_workflows: ["dummy_authorization_h
 
       it "doesn't list authorizations" do
         within_user_menu do
-          click_link "My account"
+          click_on "My account"
         end
 
         expect(page).to have_no_content("Authorizations")

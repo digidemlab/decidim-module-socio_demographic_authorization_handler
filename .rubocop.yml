@@ -3,6 +3,7 @@ inherit_gem:
 
 AllCops:
   Exclude:
+    - "development_app/**/*"
     - "spec/decidim_dummy_app*/**/*"
     - "db/**/*.rb"
     - "vendor/**/*"
