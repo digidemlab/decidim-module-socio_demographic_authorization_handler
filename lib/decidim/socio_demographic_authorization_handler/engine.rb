@@ -8,8 +8,8 @@ module Decidim
     class Engine < ::Rails::Engine
       isolate_namespace Decidim::SocioDemographicAuthorizationHandler
 
-      initializer "decidim.extends" do
-        require "decidim/extends/controllers/confirmations_controller_extend"
+      config.to_prepare do
+        Decidim::Devise::ConfirmationsController.include(ConfirmationsControllerOverride)
       end
     end
   end

@@ -15,7 +15,6 @@ describe "Admin lists authorizations", type: :system do
     visit decidim_system.root_path
     click_link "Organizations"
     click_link organization.name
-    click_link "Edit"
   end
 
   it "allows the system admin to list all available authorization methods" do

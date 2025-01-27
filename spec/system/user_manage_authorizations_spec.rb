@@ -11,18 +11,19 @@ describe "User authorizations", type: :system do
            available_authorizations: ["socio_demographic_authorization_handler"])
   end
 
-  let(:user) { create(:user) }
-
+  let(:user) { create(:user, :confirmed) }
   before do
     switch_to_host(organization.host)
     login_as user, scope: :user
     visit decidim.root_path
-    click_link user.name
+    within_user_menu do
+      click_link "My account"
+    end
     click_link "Authorizations"
   end
 
   it "displays the authorization item" do
-    within ".tabs-content.vertical" do
+    within ".authorizations-list" do
       expect(page).to have_content("Additional informations")
     end
   end
@@ -50,7 +51,7 @@ describe "User authorizations", type: :system do
       select("16-25", from: "Age")
       click_button "Send"
 
-      expect(page).to have_content("You've been successfully authorized")
+      expect(page).to have_content("You have been successfully authorized")
     end
   end
 end

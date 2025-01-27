@@ -2,6 +2,7 @@
 
 require "decidim/socio_demographic_authorization_handler/workflow"
 require "decidim/socio_demographic_authorization_handler/engine"
+require "decidim/socio_demographic_authorization_handler/version"
 
 module Decidim
   # This namespace holds the logic of the `SocioDemographicAuthorizationHandler` component. This component

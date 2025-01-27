@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_authorization_handler"] do
+describe "Authorizations", with_authorization_workflows: ["dummy_authorization_handler"] do
   before do
     switch_to_host(organization.host)
   end
@@ -10,33 +10,33 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
   context "when a new user" do
     let(:organization) { create :organization, available_authorizations: authorizations }
 
-    let(:user) { create(:user, :confirmed, organization: organization) }
+    let(:user) { create(:user, :confirmed, organization:) }
 
     context "when one authorization has been configured" do
       let(:authorizations) { ["dummy_authorization_handler"] }
 
       before do
         visit decidim.root_path
-        find(".sign-in-link").click
+        find("a", text: "Log in", match: :first).click
 
+        fill_in :session_user_email, with: user.email
+        fill_in :session_user_password, with: user.password
         within "form.new_user" do
-          fill_in :user_email, with: user.email
-          fill_in :user_password, with: "password1234"
           find("*[type=submit]").click
         end
+        Capybara.current_session.driver.browser.manage.window.resize_to(1024, 2000)
       end
 
       it "redirects the user to the authorization form after the first sign in" do
         fill_in "Document number", with: "123456789X"
-        page.execute_script("$('#authorization_handler_birthday').focus()")
-        page.find(".datepicker-dropdown .day", text: "12").click
+        fill_in :authorization_handler_birthday, with: Time.current.change(day: 12)
 
-        click_button "Send"
-        expect(page).to have_content("You've been successfully authorized")
+        click_on "Send"
+        expect(page).to have_content("You have been successfully authorized")
       end
 
       it "allows the user to skip it" do
-        click_link "start exploring"
+        click_on "start exploring"
         expect(page).to have_current_path decidim.account_path
         expect(page).to have_content("Participant settings")
       end
@@ -47,24 +47,26 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
 
       before do
         visit decidim.root_path
-        find(".sign-in-link").click
+        within "header" do
+          click_on "Log in"
+        end
 
         within "form.new_user" do
-          fill_in :user_email, with: user.email
-          fill_in :user_password, with: "password1234"
+          fill_in :session_user_email, with: user.email
+          fill_in :session_user_password, with: user.password
           find("*[type=submit]").click
         end
       end
 
       it "allows the user to choose which one to authorize against to" do
-        expect(page).to have_css("a.button.expanded", count: 2)
+        expect(page).to have_css("a.button.button__transparent-secondary", count: 2)
       end
     end
   end
 
   context "when existing user from her account" do
     let(:organization) { create :organization, available_authorizations: authorizations }
-    let(:user) { create(:user, :confirmed, organization: organization) }
+    let(:user) { create(:user, :confirmed, organization:) }
 
     before do
       login_as user, scope: :user
@@ -75,22 +77,19 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
       let(:authorizations) { ["dummy_authorization_handler"] }
 
       it "allows the user to authorize against available authorizations" do
-        within_user_menu do
-          click_link "My account"
-        end
+        visit_authorizations
 
-        click_link "Authorizations"
-        click_link "Example authorization"
+        click_on "Example authorization"
 
         fill_in "Document number", with: "123456789X"
-        page.execute_script("$('#authorization_handler_birthday').focus()")
-        page.find(".datepicker-dropdown .day", text: "12").click
-        click_button "Send"
+        fill_in :authorization_handler_birthday, with: Time.current.change(day: 12)
 
-        expect(page).to have_content("You've been successfully authorized")
+        click_on "Send"
 
-        within "#user-settings-tabs" do
-          click_link "Authorizations"
+        expect(page).to have_content("You have been successfully authorized")
+
+        within "#dropdown-menu-profile" do
+          click_on "Authorizations"
         end
 
         within ".authorizations-list" do
@@ -100,17 +99,14 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
       end
 
       it "checks if the given data is invalid" do
-        within_user_menu do
-          click_link "My account"
-        end
+        visit_authorizations
 
-        click_link "Authorizations"
-        click_link "Example authorization"
+        click_on "Example authorization"
 
         fill_in "Document number", with: "12345678"
-        page.execute_script("$('#authorization_handler_birthday').focus()")
-        page.find(".datepicker-dropdown .day", text: "12").click
-        click_button "Send"
+        fill_in :authorization_handler_birthday, with: Time.current.change(day: 12)
+
+        click_on "Send"
 
         expect(page).to have_content("There was a problem creating the authorization.")
       end
@@ -120,15 +116,11 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
       let(:authorizations) { ["dummy_authorization_handler"] }
 
       let!(:authorization) do
-        create(:authorization, name: "dummy_authorization_handler", user: user)
+        create(:authorization, name: "dummy_authorization_handler", user:)
       end
 
       it "shows the authorization at their account" do
-        within_user_menu do
-          click_link "My account"
-        end
-
-        click_link "Authorizations"
+        visit_authorizations
 
         within ".authorizations-list" do
           expect(page).to have_content("Example authorization")
@@ -137,44 +129,38 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
 
       context "when the authorization has not expired yet" do
         let!(:authorization) do
-          create(:authorization, name: "dummy_authorization_handler", user: user, granted_at: 2.seconds.ago)
+          create(:authorization, name: "dummy_authorization_handler", user:, granted_at: 2.seconds.ago)
         end
 
         it "can't be renewed yet" do
-          within_user_menu do
-            click_link "My account"
-          end
-
-          click_link "Authorizations"
+          visit_authorizations
 
           within ".authorizations-list" do
             expect(page).to have_no_link("Example authorization")
-            expect(page).to have_content(I18n.localize(authorization.granted_at, format: :long))
+            expect(page).to have_content(I18n.l(authorization.granted_at, format: :long_with_particles))
           end
         end
       end
 
       context "when the authorization has expired" do
         let!(:authorization) do
-          create(:authorization, name: "dummy_authorization_handler", user: user, granted_at: 2.months.ago)
+          create(:authorization, name: "dummy_authorization_handler", user:, granted_at: 2.months.ago)
         end
 
         it "can be renewed" do
-          within_user_menu do
-            click_link "My account"
-          end
-
-          click_link "Authorizations"
+          visit_authorizations
 
           within ".authorizations-list" do
-            expect(page).to have_link("Example authorization")
-            click_link "Example authorization"
+            expect(page).to have_content("Example authorization")
+            find(".verification").click
           end
 
-          fill_in "Document number", with: "123456789X"
-          click_button "Send"
+          click_on "Continue"
 
-          expect(page).to have_content("You've been successfully authorized")
+          fill_in "Document number", with: "123456789X"
+          click_on "Send"
+
+          expect(page).to have_content("You have been successfully authorized")
         end
       end
     end
@@ -183,9 +169,22 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
       let(:authorizations) { [] }
 
       it "doesn't list authorizations" do
-        click_link user.name
+        within_user_menu do
+          click_link "My account"
+        end
+
         expect(page).to have_no_content("Authorizations")
       end
     end
+  end
+
+  private
+
+  def visit_authorizations
+    within_user_menu do
+      click_on "My account"
+    end
+
+    click_on "Authorizations"
   end
 end
