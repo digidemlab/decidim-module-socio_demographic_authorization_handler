@@ -7,6 +7,9 @@ ignore_unused:
   - "decidim.components.socio_demographic_authorization_handler.name"
   - "decidim.authorization_handlers.socio_demographic_authorization_handler.name"
   - "decidim.authorization_handlers.socio_demographic_authorization_handler.explanation"
+  - "decidim.verifications.genders.man"
+  - "decidim.verifications.genders.woman"
+  - "decidim.verifications.genders.undefined"
 
 ignore_missing:
   - decidim.participatory_processes.scopes.global

@@ -1,28 +1,20 @@
 <div class="form__wrapper">
   <%= hidden_field :authorization_handler, :handler_name, value: "socio_demographic_authorization_handler" %>
-
   <p class="text-center skip">
     <%= t("decidim.authorization_handlers.socio_demographic_authorization_handler.privacy").html_safe %>
   </p>
-  <%
-    # i18n-tasks-use t("decidim.verifications.genders.man")
-    # i18n-tasks-use t("decidim.verifications.genders.woman")
-    # i18n-tasks-use t("decidim.verifications.genders.undefined")
-  %>
   <%= form.select :scope_id,
                   current_organization.scopes.map { |scopes| [translated_attribute(scopes.name), scopes.id] },
                   {
                     include_blank: t('decidim.verifications.scope_id.blank_option'),
                     label: t("scope_id", scope: "decidim.authorization_handlers.socio_demographic_authorization_handler.fields")
                   } %>
-
   <%= form.select :gender,
                   %w(Woman Man Undefined).map { |gender| [I18n.t(gender.downcase, scope: "decidim.verifications.genders"), gender.downcase] },
                   {
                     include_blank: t('decidim.verifications.genders.blank_option'),
                     label: t("gender", scope: "decidim.authorization_handlers.socio_demographic_authorization_handler.fields")
                   } %>
-
   <%= form.select :age,
                   %w(16- 16-25 26-35 36-45 46-55 56-65 65+).map { |slice| [slice, slice] },
                   {
