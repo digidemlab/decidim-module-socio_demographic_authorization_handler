@@ -5,17 +5,17 @@ require "spec_helper"
 describe SocioDemographicAuthorizationHandler do
   subject do
     described_class.new(
-      user: user,
-      scope_id: scope_id,
-      gender: gender,
-      age: age
+      user:,
+      scope_id:,
+      gender:,
+      age:
     )
   end
 
   let(:user) { create(:user) }
 
   let(:organization) { user.organization }
-  let!(:scopes) { create_list(:scope, 9, organization: organization) }
+  let!(:scopes) { create_list(:scope, 9, organization:) }
 
   let(:scope_id) { organization.scopes.first.id }
   let(:gender) { "man" }

@@ -22,7 +22,7 @@ class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
             presence: false
 
   def metadata
-    super.merge(scope_id: scope_id, gender: gender, age: age)
+    super.merge(scope_id:, gender:, age:)
   end
 
   private

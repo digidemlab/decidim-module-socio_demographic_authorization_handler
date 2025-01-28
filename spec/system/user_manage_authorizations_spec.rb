@@ -2,27 +2,29 @@
 
 require "spec_helper"
 
-describe "User authorizations", type: :system do
+describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
   include Decidim::TranslatableAttributes
 
-  let!(:scope) { create_list(:scope, 3, organization: organization) }
+  let!(:scope) { create_list(:scope, 3, organization:) }
   let!(:organization) do
     create(:organization,
            available_authorizations: ["socio_demographic_authorization_handler"])
   end
 
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :confirmed) }
 
   before do
     switch_to_host(organization.host)
     login_as user, scope: :user
     visit decidim.root_path
-    click_link user.name
-    click_link "Authorizations"
+    within_user_menu do
+      click_on "My account"
+    end
+    click_on "Authorizations"
   end
 
   it "displays the authorization item" do
-    within ".tabs-content.vertical" do
+    within ".authorizations-list" do
       expect(page).to have_content("Additional informations")
     end
   end
@@ -31,7 +33,7 @@ describe "User authorizations", type: :system do
     before do
       visit "/authorizations"
 
-      click_link "Additional informations"
+      click_on "Additional informations"
     end
 
     it "displays authorization form" do
@@ -48,9 +50,9 @@ describe "User authorizations", type: :system do
       select(translated_attribute(organization.scopes.first.name), from: "Scope")
       select("Man", from: "Gender")
       select("16-25", from: "Age")
-      click_button "Send"
+      click_on "Send"
 
-      expect(page).to have_content("You've been successfully authorized")
+      expect(page).to have_content("You have been successfully authorized")
     end
   end
 end

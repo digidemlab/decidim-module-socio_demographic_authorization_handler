@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "Admin lists authorizations", type: :system do
+describe "Admin lists authorizations" do # rubocop:disable RSpec/DescribeClass
   let!(:organization) do
     create(:organization, available_authorizations: ["socio_demographic_authorization_handler"])
   end
@@ -13,9 +13,8 @@ describe "Admin lists authorizations", type: :system do
     switch_to_host(organization.host)
     login_as admin, scope: :admin
     visit decidim_system.root_path
-    click_link "Organizations"
-    click_link organization.name
-    click_link "Edit"
+    click_on "Organizations"
+    click_on organization.name
   end
 
   it "allows the system admin to list all available authorization methods" do
