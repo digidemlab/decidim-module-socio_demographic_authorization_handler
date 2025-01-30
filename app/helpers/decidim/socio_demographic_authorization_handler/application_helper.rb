@@ -2,6 +2,7 @@
 
 module Decidim
   module SocioDemographicAuthorizationHandler
+    # Custom helpers, scoped to the socio_demographic_authorization_handler engine.
     module ApplicationHelper
       def participatory_processes_select_field(form, name, options = {})
         label = I18n.t(name.to_s, scope: "decidim.authorization_handlers.socio_demographic_authorization_handler.fields")
