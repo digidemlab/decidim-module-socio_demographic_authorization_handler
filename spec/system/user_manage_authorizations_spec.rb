@@ -54,6 +54,14 @@ describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
       click_on "Send"
 
       expect(page).to have_content("You have been successfully authorized")
+
+      authorization = Decidim::Authorization.last
+
+      expect(authorization.user).to eq(user)
+      expect(authorization.metadata["gender"]).to eq("man")
+      expect(authorization.metadata["age"]).to eq("16-20")
+      expect(authorization.metadata["living_area"]).to eq("Bosatt i kranskommun till Göteborg")
+      expect(authorization.metadata["participation_process"]).to eq("participatory_process_id_#{participatory_spaces.first.id}")
     end
   end
 end

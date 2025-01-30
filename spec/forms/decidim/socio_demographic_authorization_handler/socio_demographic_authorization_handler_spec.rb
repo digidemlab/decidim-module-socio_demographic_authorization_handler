@@ -24,6 +24,14 @@ describe SocioDemographicAuthorizationHandler do
   context "when all information is valid" do
     it "is valid" do
       expect(subject).to be_valid
+
+      authorization = Decidim::Authorization.last
+
+      expect(authorization.user).to eq(user)
+      expect(authorization.metadata["gender"]).to eq(gender)
+      expect(authorization.metadata["age"]).to eq(age)
+      expect(authorization.metadata["living_area"]).to eq(living_area)
+      expect(authorization.metadata["participation_process"]).to eq(participation_process)
     end
   end
 
