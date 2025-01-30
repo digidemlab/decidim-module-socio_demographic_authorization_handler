@@ -6,45 +6,29 @@ describe SocioDemographicAuthorizationHandler do
   subject do
     described_class.new(
       user:,
-      scope_id:,
       gender:,
-      age:
+      age:,
+      living_area:,
+      participation_process:
     )
   end
 
-  let(:user) { create(:user) }
-
-  let(:organization) { user.organization }
-  let!(:scopes) { create_list(:scope, 9, organization:) }
-
-  let(:scope_id) { organization.scopes.first.id }
+  let!(:participatory_spaces) { create_list(:participatory_process, 3, organization:) }
+  let(:organization) { create(:organization) }
+  let(:user) { create(:user, organization:) }
   let(:gender) { "man" }
-  let(:age) { "16-25" }
+  let(:age) { "16-20" }
+  let(:living_area) { "Bosatt i kranskommun till Göteborg" }
+  let(:participation_process) { "participatory_process_id_#{participatory_spaces.first.id}" }
 
-  context "when the information is valid" do
+  context "when all information is valid" do
     it "is valid" do
       expect(subject).to be_valid
     end
   end
 
-  context "when scope_id is not an integer" do
-    let(:scope_id) { "fakedata" }
-
-    it "is not valid" do
-      expect(subject).not_to be_valid
-    end
-  end
-
-  context "when scope_id doesn't refer to an valid scope" do
-    let(:scope_id) { -1 }
-
-    it "is not valid" do
-      expect(subject).not_to be_valid
-    end
-  end
-
   context "when gender is not in list" do
-    let(:gender) { "fakedata" }
+    let(:gender) { "invalid_gender" }
 
     it "is not valid" do
       expect(subject).not_to be_valid
@@ -52,8 +36,16 @@ describe SocioDemographicAuthorizationHandler do
     end
   end
 
+  context "when gender field is blank" do
+    let(:gender) { "" }
+
+    it "is valid" do
+      expect(subject).to be_valid
+    end
+  end
+
   context "when age is not in list" do
-    let(:age) { "fakedata" }
+    let(:age) { "invalid_age" }
 
     it "is not valid" do
       expect(subject).not_to be_valid
@@ -61,8 +53,41 @@ describe SocioDemographicAuthorizationHandler do
     end
   end
 
-  context "when one field is empty" do
-    let(:scope_id) { nil }
+  context "when age field is blank" do
+    let(:age) { "" }
+
+    it "is valid" do
+      expect(subject).to be_valid
+    end
+  end
+
+  context "when living_area is not in list" do
+    let(:living_area) { "invalid_area" }
+
+    it "is not valid" do
+      expect(subject).not_to be_valid
+      expect(subject.errors[:living_area]).to include("is not included in the list")
+    end
+  end
+
+  context "when living_area field is blank" do
+    let(:living_area) { "" }
+
+    it "is valid" do
+      expect(subject).to be_valid
+    end
+  end
+
+  context "when participation_process has invalid format" do
+    let(:participation_process) { "invalid_format" }
+
+    it "is invalid" do
+      expect(subject).to be_invalid
+    end
+  end
+
+  context "when participation_process is blank" do
+    let(:participation_process) { "" }
 
     it "is valid" do
       expect(subject).to be_valid

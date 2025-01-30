@@ -5,13 +5,12 @@ require "spec_helper"
 describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
   include Decidim::TranslatableAttributes
 
-  let!(:scope) { create_list(:scope, 3, organization:) }
+  let!(:participatory_spaces) { create_list(:participatory_process, 3, organization:) }
+  let(:user) { create(:user, :confirmed, organization:) }
   let!(:organization) do
     create(:organization,
            available_authorizations: ["socio_demographic_authorization_handler"])
   end
-
-  let(:user) { create(:user, :confirmed) }
 
   before do
     switch_to_host(organization.host)
@@ -40,16 +39,18 @@ describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
       expect(page).to have_content "Additional informations"
 
       within ".new_authorization_handler" do
-        expect(page).to have_content("Scope")
+        expect(page).to have_content("Living area")
         expect(page).to have_field("Gender")
         expect(page).to have_field("Age")
+        expect(page).to have_field("Which process will you participate in")
       end
     end
 
     it "allows user to fill form" do
-      select(translated_attribute(organization.scopes.first.name), from: "Scope")
+      select(translated_attribute(participatory_spaces.first.title), from: "Which process will you participate in")
       select("Man", from: "Gender")
-      select("16-25", from: "Age")
+      select("16-20", from: "Age")
+      select("Bosatt i kranskommun till Göteborg", from: "Living area")
       click_on "Send"
 
       expect(page).to have_content("You have been successfully authorized")
