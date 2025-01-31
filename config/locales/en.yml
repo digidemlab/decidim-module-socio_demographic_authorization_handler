@@ -7,7 +7,8 @@ en:
         fields:
           age: Age
           gender: Gender
-          scope_id: Scope
+          living_area: Living area
+          participation_process: Which process will you participate in
         name: Additional informations
         privacy: This information is directly anonymised and cannot be linked back
           to your account.
@@ -17,10 +18,7 @@ en:
       genders:
         blank_option: Please specify a gender
         man: Man
-        undefined: Undefined
+        other: Other
         woman: Woman
-      scope_id:
-        blank_option: Blank option
-  errors:
-    messages:
-      integer_only: Integer only
+      participatory_process:
+        blank_option: Please select a process
