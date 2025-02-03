@@ -18,7 +18,7 @@ en:
       genders:
         blank_option: Please specify a gender
         man: Man
-        other: Other
         woman: Woman
+        other: Other
       participatory_process:
         blank_option: Please select a process

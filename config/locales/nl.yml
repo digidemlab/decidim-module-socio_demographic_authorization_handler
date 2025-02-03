@@ -15,8 +15,8 @@ nl:
       genders:
         blank_option: Gelieve een geslacht in te voeren
         man: Man
-        undefined: Niet gedefinieerd
         woman: Vrouw
+        undefined: Niet gedefinieerd
   errors:
     messages:
       integer_only: Alleen geheel getal

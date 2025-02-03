@@ -19,7 +19,7 @@ authorization_handler:
     - "96-100"
     - "101-"
   zones:
-    - "Don’t want to say"
+    - "Välj var du bor"
     - "Bosatt i kranskommun till Göteborg"
     - "Bosatt i annan kommun i Sverige"
     - "Bosatt utanför Sverige"

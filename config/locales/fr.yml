@@ -16,8 +16,8 @@ fr:
       genders:
         blank_option: Veuillez renseigner un genre
         man: Homme
-        undefined: Non défini
         woman: Femme
+        undefined: Non défini
       scope_id:
         blank_option: Veuillez renseigner un périmètre
   errors:
