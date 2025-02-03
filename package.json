@@ -1,6 +1,6 @@
 {
   "name": "decidim-module-socio_demographic_authorization_handler",
-  "version": "0.28.0",
+  "version": "0.28.1",
   "description": "Component for socio-demographic authorization in Participatory Spaces",
   "repository": {
     "type": "git",
