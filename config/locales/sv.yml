@@ -1,25 +1,23 @@
 ---
-sv:
+en:
   decidim:
     authorization_handlers:
       socio_demographic_authorization_handler:
-        explanation: För att förbättra vår dialog skulle vi vilja veta lite mer om dig
-        privacy: Dessa uppgifter anonymeras direkt så de kan inte kopplas tillbaka till ditt konto.
+        explanation: Komplettera din profil
         fields:
           age: Ålder
           gender: Kön
-          scope_id: Område
-        name: Demografisk information
+          living_area: Område
+          participation_process: Processen du kommer delta i
+        name: Uppgifter för statistik
+        privacy: De här uppgifterna anonymeras direkt så de kan inte kopplas tillbaka till ditt konto.
     verifications:
       age_slice:
-        blank_option: Vänligen välj en åldersgrupp
+        blank_option: Välj ett alternativ
       genders:
-        blank_option: Vänligen välj en kön
+        blank_option: Välj ett alternativ
         man: Man
-        undefined: Annat
-        woman: Kvinna
-      scope_id:
-        blank_option: Vill inte säga
-  errors:
-    messages:
-      integer_only: Heltal bara
+        other: Kvinna
+        woman: Annat
+      participatory_process:
+        blank_option: Välj en process
