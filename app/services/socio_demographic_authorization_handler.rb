@@ -15,7 +15,7 @@ class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
   validate :validate_participation_process
   validates :gender, inclusion: { in: GENDER_OPTIONS }, allow_blank: true
   validates :age, inclusion: { in: AGE_OPTIONS }, allow_blank: true
-  validates :phone_number, format: { with: /\A\+?\d{7,20}\z/ }
+  validates :phone_number, format: { with: /\A\+?\d{7,20}\z/ }, allow_blank: true
   validates :living_area, inclusion: { in: LIVING_AREA_OPTIONS }, allow_blank: true
 
   def metadata
