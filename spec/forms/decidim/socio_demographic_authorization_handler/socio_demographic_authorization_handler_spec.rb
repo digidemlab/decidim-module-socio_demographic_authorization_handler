@@ -21,7 +21,7 @@ describe SocioDemographicAuthorizationHandler do
   let(:age) { "16-20" }
   let(:phone_number) { "+46701234567" }
   let(:living_area) { "Bosatt i kranskommun till Göteborg" }
-  let(:participatory_space) { participatory_spaces.first.id }
+  let(:participatory_space) { participatory_spaces.first.to_global_id }
 
   context "when all information is valid" do
     it "is valid" do

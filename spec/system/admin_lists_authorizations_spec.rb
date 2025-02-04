@@ -19,7 +19,7 @@ describe "Admin lists authorizations" do # rubocop:disable RSpec/DescribeClass
 
   it "allows the system admin to list all available authorization methods" do
     within ".edit_organization" do
-      expect(page).to have_content("Additional informations")
+      expect(page).to have_content("Additional information")
     end
   end
 end

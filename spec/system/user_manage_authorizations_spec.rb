@@ -64,7 +64,7 @@ describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
       expect(authorization.metadata["age"]).to eq("16-20")
       expect(authorization.metadata["phone_number"]).to eq("+46701234567")
       expect(authorization.metadata["living_area"]).to eq("Bosatt i kranskommun till Göteborg")
-      expect(authorization.metadata["participatory_space"]).to eq("#{participatory_spaces.first.to_global_id}")
+      expect(authorization.metadata["participatory_space"]).to eq(participatory_spaces.first.to_global_id.to_s)
     end
   end
 end
