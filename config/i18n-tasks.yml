@@ -5,7 +5,7 @@ locales: [en, fr]
 
 ignore_unused:
   - "decidim.components.socio_demographic_authorization_handler.name"
-  - "decidim.authorization_handlers.socio_demographic_authorization_handler.fields.participation_process"
+  - "decidim.authorization_handlers.socio_demographic_authorization_handler.fields.participatory_space"
   - "decidim.authorization_handlers.socio_demographic_authorization_handler.name"
   - "decidim.authorization_handlers.socio_demographic_authorization_handler.explanation"
   - "decidim.verifications.genders.man"

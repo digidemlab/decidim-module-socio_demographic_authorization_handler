@@ -24,7 +24,7 @@ describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
 
   it "displays the authorization item" do
     within ".authorizations-list" do
-      expect(page).to have_content("Additional informations")
+      expect(page).to have_content("Additional information")
     end
   end
 
@@ -32,11 +32,11 @@ describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
     before do
       visit "/authorizations"
 
-      click_on "Additional informations"
+      click_on "Additional information"
     end
 
     it "displays authorization form" do
-      expect(page).to have_content "Additional informations"
+      expect(page).to have_content "Additional information"
 
       within ".new_authorization_handler" do
         expect(page).to have_content("Living area")
@@ -61,7 +61,7 @@ describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
       expect(authorization.metadata["gender"]).to eq("man")
       expect(authorization.metadata["age"]).to eq("16-20")
       expect(authorization.metadata["living_area"]).to eq("Bosatt i kranskommun till Göteborg")
-      expect(authorization.metadata["participation_process"]).to eq("participatory_process_id_#{participatory_spaces.first.id}")
+      expect(authorization.metadata["participatory_space"]).to eq(participatory_spaces.first.to_global_id.to_s)
     end
   end
 end

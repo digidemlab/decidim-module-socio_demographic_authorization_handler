@@ -219,7 +219,7 @@ describe "Authentication" do
 
       expect(page).to have_content("successfully confirmed")
       expect(last_user).to be_confirmed
-      expect(page).to have_content("Additional informations")
+      expect(page).to have_content("Additional information")
     end
   end
 

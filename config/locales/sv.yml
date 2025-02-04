@@ -8,7 +8,7 @@ sv:
           age: Ålder
           gender: Kön
           living_area: Område
-          participation_process: Processen du kommer delta i
+          participatory_space: Processen du kommer delta i
         name: Uppgifter för statistik
         privacy: De här uppgifterna anonymeras direkt så de kan inte kopplas tillbaka till ditt konto.
     verifications:
