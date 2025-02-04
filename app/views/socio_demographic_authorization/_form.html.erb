@@ -17,6 +17,12 @@
                     label: t("age", scope: "decidim.authorization_handlers.socio_demographic_authorization_handler.fields")
                   } %>
 
+  <%= form.text_field :phone_number,
+                      {
+                        label: t("phone_number", scope: "decidim.authorization_handlers.socio_demographic_authorization_handler.fields"),
+                        help_text: t("phone_number_help", scope: "decidim.authorization_handlers.socio_demographic_authorization_handler.fields")
+                      } %>
+
   <%= form.select :living_area,
                   zones.map { |zone| [zone, zone] },
                   {

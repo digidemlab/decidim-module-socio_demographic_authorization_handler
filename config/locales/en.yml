@@ -9,6 +9,8 @@ en:
           gender: Gender
           living_area: Living area
           participation_process: Which process will you participate in
+          phone_number: Phone number
+          phone_number_help: Do not use dashes nor spaces.
         name: Additional informations
         privacy: This information is directly anonymised and cannot be linked back
           to your account.
@@ -18,7 +20,7 @@ en:
       genders:
         blank_option: Please specify a gender
         man: Man
-        woman: Woman
         other: Other
+        woman: Woman
       participatory_process:
         blank_option: Please select a process

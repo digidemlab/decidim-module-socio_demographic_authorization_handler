@@ -8,6 +8,7 @@ describe SocioDemographicAuthorizationHandler do
       user:,
       gender:,
       age:,
+      phone_number:,
       living_area:,
       participation_process:
     )
@@ -18,6 +19,7 @@ describe SocioDemographicAuthorizationHandler do
   let(:user) { create(:user, organization:) }
   let(:gender) { "man" }
   let(:age) { "16-20" }
+  let(:phone_number) { "+46701234567" }
   let(:living_area) { "Bosatt i kranskommun till Göteborg" }
   let(:participation_process) { "participatory_process_id_#{participatory_spaces.first.id}" }
 
@@ -55,6 +57,22 @@ describe SocioDemographicAuthorizationHandler do
 
   context "when age field is blank" do
     let(:age) { "" }
+
+    it "is valid" do
+      expect(subject).to be_valid
+    end
+  end
+
+  context "when phone_number has invalid format" do
+    let(:phone_number) { "invalid_phone_number" }
+
+    it "is invalid" do
+      expect(subject).to be_invalid
+    end
+  end
+
+  context "when phone_number field is blank" do
+    let(:phone_number) { "" }
 
     it "is valid" do
       expect(subject).to be_valid

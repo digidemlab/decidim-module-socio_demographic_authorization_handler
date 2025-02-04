@@ -41,6 +41,7 @@ describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
       within ".new_authorization_handler" do
         expect(page).to have_content("Living area")
         expect(page).to have_field("Gender")
+        expect(page).to have_field("Phone number")
         expect(page).to have_field("Age")
         expect(page).to have_field("Which process will you participate in")
       end
@@ -50,6 +51,7 @@ describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
       select(translated_attribute(participatory_spaces.first.title), from: "Which process will you participate in")
       select("Man", from: "Gender")
       select("16-20", from: "Age")
+      fill_in "Phone number", with: "+46701234567"
       select("Bosatt i kranskommun till Göteborg", from: "Living area")
       click_on "Send"
 
@@ -60,6 +62,7 @@ describe "User authorizations" do # rubocop:disable RSpec/DescribeClass
       expect(authorization.user).to eq(user)
       expect(authorization.metadata["gender"]).to eq("man")
       expect(authorization.metadata["age"]).to eq("16-20")
+      expect(authorization.metadata["phone_number"]).to eq("+46701234567")
       expect(authorization.metadata["living_area"]).to eq("Bosatt i kranskommun till Göteborg")
       expect(authorization.metadata["participation_process"]).to eq("participatory_process_id_#{participatory_spaces.first.id}")
     end
