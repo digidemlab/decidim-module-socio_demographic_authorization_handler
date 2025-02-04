@@ -5,6 +5,7 @@ class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
   attribute :participation_process, String
   attribute :gender, String
   attribute :age, String
+  attribute :phone_number, String
   attribute :living_area, String
 
   GENDER_OPTIONS = Decidim::SocioDemographicAuthorizationHandler::StaticAuthorizationData.genders.map(&:downcase).freeze
@@ -14,6 +15,7 @@ class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
   validate :validate_participation_process
   validates :gender, inclusion: { in: GENDER_OPTIONS }, allow_blank: true
   validates :age, inclusion: { in: AGE_OPTIONS }, allow_blank: true
+  validates :phone_number, format: { with: /\A\+?\d{7,20}\z/ }
   validates :living_area, inclusion: { in: LIVING_AREA_OPTIONS }, allow_blank: true
 
   def metadata
@@ -21,6 +23,7 @@ class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
       participation_process: participation_process.presence,
       gender: gender.presence,
       age: age.presence,
+      phone_number: phone_number.presence,
       living_area: living_area.presence
     }.compact
   end
