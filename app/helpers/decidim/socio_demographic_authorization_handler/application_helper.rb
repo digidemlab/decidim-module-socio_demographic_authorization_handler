@@ -4,7 +4,7 @@ module Decidim
   module SocioDemographicAuthorizationHandler
     # Custom helpers, scoped to the socio_demographic_authorization_handler engine.
     module ApplicationHelper
-      def participatory_processes_select_field(form, name, options = {})
+      def participatory_spaces_select_field(form, name, options = {})
         label = I18n.t(name.to_s, scope: "decidim.authorization_handlers.socio_demographic_authorization_handler.fields")
         options = options.reverse_merge(
           include_blank: I18n.t("blank_option", scope: "decidim.verifications.participatory_process"),
@@ -13,20 +13,19 @@ module Decidim
 
         form.select(
           name,
-          participatory_processes_options,
+          grouped_options_for_select(participatory_spaces_options(form.object.participatory_spaces)),
           options,
           { name: "#{form.object_name}[#{name}", id: "#{name}-select" }
         )
       end
 
-      def participatory_processes_options
-        participatory_spaces = fetch_participatory_spaces
-
-        options = participatory_spaces.group_by { |item| item.manifest.name }.flat_map do |manifest_name, items|
-          grouped_options(manifest_name, items)
+      def participatory_spaces_options(participatory_spaces)
+        participatory_spaces.group_by { |item| item.manifest.name }.map do |manifest_name, items|
+          [
+            I18n.t("decidim.admin.titles.#{manifest_name}", default: manifest_name.to_s.humanize),
+            items.map { |item| [translated_attribute(item.title), item.to_global_id.to_s] }
+          ]
         end
-
-        safe_join(options)
       end
 
       def genders
@@ -39,31 +38,6 @@ module Decidim
 
       def zones
         StaticAuthorizationData.zones
-      end
-
-      private
-
-      def fetch_participatory_spaces
-        Decidim::ParticipatoryProcess.where(organization: current_organization).published.to_a +
-          Decidim::Assemblies::OrganizationPublishedAssemblies.new(current_organization).query.to_a
-      end
-
-      def grouped_options(manifest_name, collection)
-        return [] if collection.empty?
-
-        options = []
-        translated_manifest_name = I18n.t("decidim.manifest.#{manifest_name}", default: manifest_name.to_s.humanize)
-
-        options << disabled_header_option(translated_manifest_name)
-        collection.each do |item|
-          options << content_tag(:option, translated_attribute(item.title), value: "#{manifest_name.to_s.singularize}_id_#{item.id}")
-        end
-
-        options
-      end
-
-      def disabled_header_option(name)
-        content_tag(:option, name, disabled: true)
       end
     end
   end

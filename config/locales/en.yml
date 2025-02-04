@@ -3,16 +3,16 @@ en:
   decidim:
     authorization_handlers:
       socio_demographic_authorization_handler:
-        explanation: Complete your profile with additional informations
+        explanation: Complete your profile with additional information
         fields:
           age: Age
           gender: Gender
           living_area: Living area
-          participation_process: Which process will you participate in
+          participatory_space: Which process will you participate in
           phone_number: Phone number
           phone_number_help: Do not use dashes nor spaces.
-        name: Additional informations
-        privacy: This information is directly anonymised and cannot be linked back
+        name: Additional information
+        privacy: This information is directly anonymized and cannot be linked back
           to your account.
     verifications:
       age_slice:
