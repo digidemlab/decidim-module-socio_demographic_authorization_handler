@@ -4,7 +4,7 @@ module Decidim
   module SocioDemographicAuthorizationHandler
     # Custom helpers, scoped to the socio_demographic_authorization_handler engine.
     module ApplicationHelper
-      def participatory_processes_select_field(form, name, options = {})
+      def participation_spaces_select_field(form, name, options = {})
         label = I18n.t(name.to_s, scope: "decidim.authorization_handlers.socio_demographic_authorization_handler.fields")
         options = options.reverse_merge(
           include_blank: I18n.t("blank_option", scope: "decidim.verifications.participatory_process"),
@@ -13,13 +13,13 @@ module Decidim
 
         form.select(
           name,
-          participatory_processes_options,
+          participation_spaces_options,
           options,
           { name: "#{form.object_name}[#{name}", id: "#{name}-select" }
         )
       end
 
-      def participatory_processes_options
+      def participation_spaces_options
         participatory_spaces = fetch_participatory_spaces
 
         options = participatory_spaces.group_by { |item| item.manifest.name }.flat_map do |manifest_name, items|

@@ -10,7 +10,7 @@ describe SocioDemographicAuthorizationHandler do
       age:,
       phone_number:,
       living_area:,
-      participation_process:
+      participatory_space:
     )
   end
 
@@ -21,7 +21,7 @@ describe SocioDemographicAuthorizationHandler do
   let(:age) { "16-20" }
   let(:phone_number) { "+46701234567" }
   let(:living_area) { "Bosatt i kranskommun till Göteborg" }
-  let(:participation_process) { "participatory_process_id_#{participatory_spaces.first.id}" }
+  let(:participatory_space) { participatory_spaces.first.id }
 
   context "when all information is valid" do
     it "is valid" do
@@ -96,16 +96,16 @@ describe SocioDemographicAuthorizationHandler do
     end
   end
 
-  context "when participation_process has invalid format" do
-    let(:participation_process) { "invalid_format" }
+  context "when participatory_space has invalid format" do
+    let(:participatory_space) { "invalid_format" }
 
     it "is invalid" do
       expect(subject).to be_invalid
     end
   end
 
-  context "when participation_process is blank" do
-    let(:participation_process) { "" }
+  context "when participatory_space is blank" do
+    let(:participatory_space) { "" }
 
     it "is valid" do
       expect(subject).to be_valid

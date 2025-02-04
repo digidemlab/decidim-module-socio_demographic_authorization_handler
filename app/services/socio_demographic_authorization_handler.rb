@@ -2,7 +2,7 @@
 
 # Allows to create a form for simple Socio Demographic authorization
 class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
-  attribute :participation_process, String
+  attribute :participation_space, String
   attribute :gender, String
   attribute :age, String
   attribute :phone_number, String
@@ -12,7 +12,7 @@ class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
   AGE_OPTIONS = Decidim::SocioDemographicAuthorizationHandler::StaticAuthorizationData.ages.freeze
   LIVING_AREA_OPTIONS = Decidim::SocioDemographicAuthorizationHandler::StaticAuthorizationData.zones.freeze
 
-  validate :validate_participation_process
+  validate :validate_participation_space
   validates :gender, inclusion: { in: GENDER_OPTIONS }, allow_blank: true
   validates :age, inclusion: { in: AGE_OPTIONS }, allow_blank: true
   validates :phone_number, format: { with: /\A\+?\d{7,20}\z/ }, allow_blank: true
@@ -20,7 +20,7 @@ class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
 
   def metadata
     {
-      participation_process: participation_process.presence,
+      participation_space: participation_space.presence,
       gender: gender.presence,
       age: age.presence,
       phone_number: phone_number.presence,
@@ -28,18 +28,18 @@ class SocioDemographicAuthorizationHandler < Decidim::AuthorizationHandler
     }.compact
   end
 
-  def validate_participation_process
-    return if participation_process.blank?
+  def validate_participation_space
+    return if participation_space.blank?
 
     valid_options = fetch_participation_options
 
-    errors.add(:participation_process, :invalid) unless Array.wrap(participation_process).all? { |process| valid_options.include?(process) }
+    errors.add(:participation_space, :invalid) unless Array.wrap(participation_space).all? { |process| valid_options.include?(process) }
   end
 
   def fetch_participation_options
     participatory_spaces = Decidim::ParticipatoryProcess.where(organization: user.organization).published +
                            Decidim::Assemblies::OrganizationPublishedAssemblies.new(user.organization).query
 
-    participatory_spaces.map { |space| "#{space.manifest.name.to_s.singularize}_id_#{space.id}" }
+    participatory_spaces.map { |space| "#{space.to_global_id}" }
   end
 end
