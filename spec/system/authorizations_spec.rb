@@ -29,7 +29,7 @@ describe "Authorizations", with_authorization_workflows: ["dummy_authorization_h
 
       it "redirects the user to the authorization form after the first sign in" do
         fill_in "Document number", with: "123456789X"
-        fill_in :authorization_handler_birthday, with: Time.current.change(day: 12)
+        fill_in :authorization_handler_birthday_date, with: Time.current.change(day: 12)
 
         click_on "Send"
         expect(page).to have_content("You have been successfully authorized")
@@ -82,7 +82,7 @@ describe "Authorizations", with_authorization_workflows: ["dummy_authorization_h
         click_on "Example authorization"
 
         fill_in "Document number", with: "123456789X"
-        fill_in :authorization_handler_birthday, with: Time.current.change(day: 12)
+        fill_in :authorization_handler_birthday_date, with: Time.current.change(day: 12)
 
         click_on "Send"
 
@@ -104,7 +104,7 @@ describe "Authorizations", with_authorization_workflows: ["dummy_authorization_h
         click_on "Example authorization"
 
         fill_in "Document number", with: "12345678"
-        fill_in :authorization_handler_birthday, with: Time.current.change(day: 12)
+        fill_in :authorization_handler_birthday_date, with: Time.current.change(day: 12)
 
         click_on "Send"
 
