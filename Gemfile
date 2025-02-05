@@ -19,13 +19,13 @@ gem "bootsnap", "~> 1.7"
 gem "puma", ">= 6.3.1"
 
 group :development, :test do
-  gem "brakeman", "~> 5.4"
   gem "byebug", "~> 11.0", platform: :mri
+
   gem "decidim-dev", DECIDIM_VERSION
 
-  # Fixes uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger (NameError)
-  # Can be removed when upgrading to Decidim 0.29
+  gem "brakeman", "~> 6.1"
   gem "concurrent-ruby", "< 1.3.5"
+  gem "parallel_tests", "~> 4.2"
 end
 
 group :development do
