@@ -22,10 +22,10 @@ describe "Authentication" do
     expect(page).to have_content(user.name)
   end
 
-  describe "Sign Up" do
+  describe "Create an account" do
     context "when using email and password" do
       it "creates a new User" do
-        click_on "Sign Up"
+        click_on "Create an account"
 
         within ".new_user" do
           fill_in :registration_user_email, with: "user@example.org"
@@ -42,7 +42,7 @@ describe "Authentication" do
 
     context "when being a robot" do
       it "denies the sign up" do
-        click_on "Sign Up"
+        click_on "Create an account"
 
         within ".new_user" do
           page.execute_script("$($('.new_user > div > input')[0]).val('Ima robot :D')")
@@ -82,7 +82,7 @@ describe "Authentication" do
 
       context "when the user has confirmed the email in facebook" do
         it "creates a new User without sending confirmation instructions" do
-          click_on "Sign Up"
+          click_on "Create an account"
 
           click_on "Log in with Facebook"
 
@@ -118,7 +118,7 @@ describe "Authentication" do
 
       context "when the response doesn't include the email" do
         it "redirects the user to a finish signup page" do
-          click_on "Sign Up"
+          click_on "Create an account"
 
           click_on "Log in with X"
 
@@ -134,7 +134,7 @@ describe "Authentication" do
         context "and a user already exists with the given email" do
           it "doesn't allow it" do
             create(:user, :confirmed, email: "user@from-twitter.com", organization:)
-            click_on "Sign Up"
+            click_on "Create an account"
 
             click_on "Log in with X"
 
@@ -156,7 +156,7 @@ describe "Authentication" do
         let(:email) { "user@from-twitter.com" }
 
         it "creates a new User" do
-          click_on "Sign Up"
+          click_on "Create an account"
 
           click_on "Log in with X"
 
@@ -188,7 +188,7 @@ describe "Authentication" do
       end
 
       it "creates a new User" do
-        click_on "Sign Up"
+        click_on "Create an account"
 
         click_on "Log in with Google"
 
@@ -201,7 +201,7 @@ describe "Authentication" do
 
       it "redirects to the sign in when accessing the sign up page" do
         visit decidim.new_user_registration_path
-        expect(page).to have_no_content("Sign Up")
+        expect(page).to have_no_content("Create an account")
       end
 
       it "don't allow the user to sign up" do
@@ -239,10 +239,10 @@ describe "Authentication" do
       end
 
       within "#notifications" do
-        expect(page).to have_content("Thanks for joining #{organization.name}")
+        expect(page).to have_content("Thanks for joining #{translated(organization.name)}")
       end
 
-      expect(last_email_body).to include("Hi #{user.name}, thanks for joining #{organization.name}")
+      expect(last_email_body).to include("Hi #{user.name}, thanks for joining #{translated(organization.name)}")
     end
   end
 
@@ -371,7 +371,7 @@ describe "Authentication" do
         it "doesn't allow the user to sign up" do
           log_in
 
-          expect(page).to have_no_content("Sign Up")
+          expect(page).to have_no_content("Create an account")
         end
       end
 
@@ -381,7 +381,7 @@ describe "Authentication" do
         it "doesn't allow the user to sign up" do
           log_in
 
-          expect(page).to have_no_content("Sign Up")
+          expect(page).to have_no_content("Create an account")
         end
 
         it "doesn't allow the user to sign in as a regular user, only through external accounts" do
@@ -405,10 +405,10 @@ describe "Authentication" do
   context "when a user is already registered in another organization with the same email" do
     let(:user) { create(:user, :confirmed, password: "DfyvHn425mYAy2HL") }
 
-    describe "Sign Up" do
+    describe "Create an account" do
       context "when using the same email" do
         it "creates a new User" do
-          click_on "Sign Up"
+          click_on "Create an account"
 
           within ".new_user" do
             fill_in :registration_user_email, with: user.email
@@ -451,10 +451,10 @@ describe "Authentication" do
       OmniAuth.config.mock_auth[:facebook] = nil
     end
 
-    describe "Sign Up" do
+    describe "Create an account" do
       context "when the user has confirmed the email in facebook" do
         it "creates a new User without sending confirmation instructions" do
-          click_on "Sign Up"
+          click_on "Create an account"
 
           click_on "Log in with Facebook"
 
