@@ -1,9 +1,11 @@
 authorization_handler:
   genders:
+    - "Vill ej ange"
     - "Man"
     - "Woman"
     - "Other"
   ages:
+    - "Vill ej ange"
     - "0-10"
     - "11-15"
     - "16-20"
@@ -20,6 +22,7 @@ authorization_handler:
     - "101-"
   zones:
     - "Välj var du bor"
+    - "Vill ej ange"
     - "Bosatt i kranskommun till Göteborg"
     - "Bosatt i annan kommun i Sverige"
     - "Bosatt utanför Sverige"
