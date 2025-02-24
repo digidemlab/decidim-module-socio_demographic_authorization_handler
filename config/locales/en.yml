@@ -8,11 +8,9 @@ en:
           age: Age
           gender: Gender
           living_area: Living area
-          participatory_space: Which process will you participate in
-          phone_number: Phone number
-          phone_number_help: Do not use dashes nor spaces.
-        name: Additional information
-        privacy: This information is directly anonymized and cannot be linked back
+          participation_process: Which process will you participate in
+        name: Additional informations
+        privacy: This information is directly anonymised and cannot be linked back
           to your account.
     verifications:
       age_slice:
@@ -20,7 +18,7 @@ en:
       genders:
         blank_option: Please specify a gender
         man: Man
-        other: Other
         woman: Woman
+        other: Other
       participatory_process:
         blank_option: Please select a process
