@@ -16,6 +16,7 @@ sv:
         blank_option: Välj ett alternativ
       genders:
         blank_option: Välj ett alternativ
+        do_not_want_to_say: Vill ej ange
         man: Man
         woman: Kvinna
         other: Annat

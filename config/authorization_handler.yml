@@ -1,6 +1,6 @@
 authorization_handler:
   genders:
-    - "Vill ej ange"
+    - "do_not_want_to_say"
     - "Man"
     - "Woman"
     - "Other"
