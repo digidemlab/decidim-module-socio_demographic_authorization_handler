@@ -9,8 +9,6 @@ en:
           gender: Gender
           living_area: Living area
           participatory_space: Which process will you participate in
-          phone_number: Phone number
-          phone_number_help: Do not use dashes nor spaces.
         name: Additional information
         privacy: This information is directly anonymized and cannot be linked back
           to your account.
