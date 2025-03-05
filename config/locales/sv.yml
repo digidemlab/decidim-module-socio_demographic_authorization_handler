@@ -9,6 +9,8 @@ sv:
           gender: Kön
           living_area: Område
           participatory_space: Processen du kommer delta i
+          phone_number: Telefonnummer
+          phone_number_help: Använd inte mellanslag eller bindestreck
         name: Uppgifter för statistik
         privacy: De här uppgifterna anonymiseras direkt, så att de kan inte kopplas till ditt konto. 
     verifications:
