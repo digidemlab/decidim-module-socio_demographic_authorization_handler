@@ -29,3 +29,19 @@
                     label: t("living_area", scope: "decidim.authorization_handlers.socio_demographic_authorization_handler.fields")
                   } %>
 </div>
+<script>
+  let processSelect = document.querySelector("#participatory_space-select");
+  let areaLabel = document.querySelector("label[for=authorization_handler_living_area]");
+  let areaSelect = document.querySelector("#authorization_handler_living_area");
+  var lastAreaSelect = "Välj var du bor";
+  processSelect.addEventListener("change", e => {
+    if (processSelect.value == "gid://decidim-sweden/Decidim::ParticipatoryProcess/14") {
+      areaLabel.style.display = "none";
+      lastAreaSelect = areaSelect.value;
+      areaSelect.value = "Välj var du bor";
+    } else if (areaLabel.style.display == "none") {
+      areaSelect.value = lastAreaSelect;
+      areaLabel.style.display = "unset";
+    }
+  });
+</script>
