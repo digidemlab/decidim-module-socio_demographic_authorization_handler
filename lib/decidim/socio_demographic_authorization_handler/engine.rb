@@ -14,6 +14,7 @@ module Decidim
         end
 
         Decidim::Devise::ConfirmationsController.include(ConfirmationsControllerOverride)
+        Decidim::Proposals::ProposalSerializer.include(ProposalSerializerExtensions)
       end
     end
   end
