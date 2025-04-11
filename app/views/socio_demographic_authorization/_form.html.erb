@@ -1,5 +1,5 @@
 <div class="form__wrapper">
-  <%= hidden_field :authorization_handler, :handler_name, value: "socio_demographic_authorization_handler" %>
+  <%= hidden_field :authorization_handler, :handler_name, value: handler.handler_name %>
 
   <%= form.text_field :phone_number,
                       {

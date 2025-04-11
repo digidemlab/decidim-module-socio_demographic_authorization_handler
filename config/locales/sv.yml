@@ -13,6 +13,8 @@ sv:
           phone_number_help: Använd inte mellanslag eller bindestreck
         name: Uppgifter för statistik
         privacy: Uppgifterna nedan anonymiseras direkt, så att de kan inte kopplas till ditt konto.
+      socio_demographic_phone_authorization_handler:
+        name: Uppgifter för statistik, telefonnummer obligatoriskt
     verifications:
       age_slice:
         blank_option: Välj ett alternativ
