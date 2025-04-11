@@ -9,9 +9,9 @@ fr:
           age: Âge
           gender: Genre
           scope_id: Périmètre
-        name: Données personnelles
-      socio_demographic_phone_authorization_handler:
         name: Données personnelles, numéro de telephone obligatoire
+      socio_demographic_no_phone_authorization_handler:
+        name: Données personnelles
     verifications:
       age_slice:
         blank_option: Veuillez renseigner une tranche d'âge

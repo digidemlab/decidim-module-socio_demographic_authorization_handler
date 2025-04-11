@@ -4,6 +4,6 @@ Decidim::Verifications.register_workflow(:socio_demographic_authorization_handle
   workflow.form = "SocioDemographicAuthorizationHandler"
 end
 
-Decidim::Verifications.register_workflow(:socio_demographic_phone_authorization_handler) do |workflow|
-  workflow.form = "SocioDemographicPhoneAuthorizationHandler"
+Decidim::Verifications.register_workflow(:socio_demographic_no_phone_authorization_handler) do |workflow|
+  workflow.form = "SocioDemographicNoPhoneAuthorizationHandler"
 end
