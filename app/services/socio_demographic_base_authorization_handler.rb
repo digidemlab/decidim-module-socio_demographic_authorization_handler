@@ -34,14 +34,7 @@ class SocioDemographicBaseAuthorizationHandler < Decidim::AuthorizationHandler
   end
 
   def participatory_spaces
-    @participatory_spaces ||=
-      # Seems like a bug in impersonations where additional authorizations do not get some data,
-      # user returns nil. Workaround by just showing all processes in that case.
-      if user.blank?
-        Decidim::ParticipatoryProcess.published
-      else
-        Decidim::ParticipatoryProcess.where(organization: user.organization).published +
-        Decidim::Assemblies::OrganizationPublishedAssemblies.new(user.organization).query
-      end
+    @participatory_spaces ||= Decidim::ParticipatoryProcess.where(organization: user.organization).published +
+                              Decidim::Assemblies::OrganizationPublishedAssemblies.new(user.organization).query
   end
 end
