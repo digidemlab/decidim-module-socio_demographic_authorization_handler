@@ -34,7 +34,7 @@ class SocioDemographicBaseAuthorizationHandler < Decidim::AuthorizationHandler
   end
 
   def participatory_spaces
-    @participatory_spaces ||= Decidim::ParticipatoryProcess.where(organization: user.organization).published +
+    @participatory_spaces ||= Decidim::ParticipatoryProcess.where(organization: user.organization).published.active +
                               Decidim::Assemblies::OrganizationPublishedAssemblies.new(user.organization).query
   end
 end
