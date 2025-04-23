@@ -3,15 +3,15 @@ fr:
   decidim:
     authorization_handlers:
       socio_demographic_authorization_handler:
+        name: Données personelles pour soumettre des suggestions
         explanation: Complétez les informations de votre profil
         privacy: Ces informations sont anonymisées et ne peuvent pas être réassociées à votre compte.
         fields:
           age: Âge
           gender: Genre
           scope_id: Périmètre
-        name: Données personnelles, numéro de telephone obligatoire
       socio_demographic_no_phone_authorization_handler:
-        name: Données personnelles
+        name: Données personnelles pour la vote
     verifications:
       age_slice:
         blank_option: Veuillez renseigner une tranche d'âge

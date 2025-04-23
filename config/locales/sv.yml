@@ -3,6 +3,7 @@ sv:
   decidim:
     authorization_handlers:
       socio_demographic_authorization_handler:
+        name: Uppgifter vid förslagsinlämning
         explanation: Komplettera din profil
         fields:
           age: Ålder
@@ -12,9 +13,8 @@ sv:
           phone_number: Telefonnummer
           phone_number_help: Använd inte mellanslag eller bindestreck
         privacy: Uppgifterna nedan anonymiseras direkt, så att de kan inte kopplas till ditt konto.
-        name: Uppgifter för statistik, telefonnummer obligatoriskt
       socio_demographic_no_phone_authorization_handler:
-        name: Uppgifter för statistik
+        name: Uppgifter vid röstning
     verifications:
       age_slice:
         blank_option: Välj ett alternativ
