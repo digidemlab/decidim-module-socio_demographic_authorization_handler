@@ -13,7 +13,6 @@ module Decidim
           include Decidim::SocioDemographicAuthorizationHandler::ApplicationHelper
         end
 
-        Decidim::Devise::ConfirmationsController.include(ConfirmationsControllerOverride)
         Decidim::Admin::ImpersonationsController.include(ImpersonationsControllerOverride)
         Decidim::Proposals::ProposalSerializer.include(ProposalSerializerExtensions)
       end
