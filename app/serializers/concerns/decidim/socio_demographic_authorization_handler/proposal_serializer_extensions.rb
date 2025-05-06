@@ -20,7 +20,7 @@ module Decidim
               author_url(is_author_user_group ? resource.coauthorships.first.user_group : author)
             end,
             email: resource.authors.map do |author|
-              author.email
+              author_email(author)
             end,
             phone: resource.authors.map do |author|
               authorization = Decidim::Authorization.find_by(decidim_user_id: author.id)
