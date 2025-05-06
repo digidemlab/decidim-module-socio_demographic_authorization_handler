@@ -29,6 +29,14 @@ module Decidim
           }
         end
       end
+
+      def author_email(author)
+        if author.response_to?(:email)
+          author.email
+        else
+          ""
+        end
+      end
     end
   end
 end
