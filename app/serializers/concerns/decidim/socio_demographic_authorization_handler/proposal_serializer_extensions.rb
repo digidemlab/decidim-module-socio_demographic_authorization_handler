@@ -31,7 +31,7 @@ module Decidim
       end
 
       def author_email(author)
-        if author.response_to?(:email)
+        if author.respond_to?(:email)
           author.email
         else
           ""
