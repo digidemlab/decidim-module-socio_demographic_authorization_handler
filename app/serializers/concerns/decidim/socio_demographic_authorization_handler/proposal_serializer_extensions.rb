@@ -23,7 +23,7 @@ module Decidim
               author_email(author)
             end,
             phone: resource.authors.map do |author|
-              authorization = Decidim::Authorization.where(decidim_user_id: author.id, name: "socio_demograhpic_authorization_handler").last
+              authorization = Decidim::Authorization.where(decidim_user_id: author.id, name: "socio_demographic_authorization_handler").last
               authorization.nil? ? "" : authorization.metadata["phone_number"]
             end
           }
