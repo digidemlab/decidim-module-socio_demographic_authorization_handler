@@ -14,7 +14,6 @@ module Decidim
         end
 
         Decidim::Admin::ImpersonationsController.include(ImpersonationsControllerOverride)
-        Decidim::Proposals::ProposalSerializer.include(ProposalSerializerExtensions)
       end
     end
   end
