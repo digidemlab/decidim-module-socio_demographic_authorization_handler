@@ -15,6 +15,18 @@ sv:
         privacy: Uppgifterna nedan anonymiseras direkt, så att de kan inte kopplas till ditt konto.
       socio_demographic_no_phone_authorization_handler:
         name: Uppgifter vid röstning
+      regnbagshuset_authorization_handler:
+        name: Regnbågshuset
+        explanation: Registrering för Regnbågshuset
+        fields:
+          agree_to_be_nice: Jag förstår att jag behöver vara trevlig och ha god ton mot andra på plattformen.
+          agree_no_personal_data: Jag förstår att jag inte ska skriva namn eller andra känsliga personuppgifter på mina inlägg på sidan.
+          visited_regnbagshuset: Jag har besökt regnbågshuset
+          why_not_visited: Varför?
+        visited_options:
+          yes: Ja
+          no: Nej
+          want_to: Jag vill!
     verifications:
       age_slice:
         blank_option: Välj ett alternativ

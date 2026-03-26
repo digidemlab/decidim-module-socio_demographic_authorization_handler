@@ -15,6 +15,18 @@ en:
         privacy: Information entered below is directly anonymised and cannot be linked back to your account
       socio_demographic_no_phone_authorization_handler:
         name: Additional information for vote
+      regnbagshuset_authorization_handler:
+        name: Regnbågshuset
+        explanation: Registration for Regnbågshuset
+        fields:
+          agree_to_be_nice: I understand that I need to be friendly and have a respectful tone towards others on the platform.
+          agree_no_personal_data: I understand that I should not write names or other sensitive personal data in my posts on the site.
+          visited_regnbagshuset: I have visited Regnbågshuset
+          why_not_visited: Why?
+        visited_options:
+          yes: Yes
+          no: No
+          want_to: I want to!
     verifications:
       age_slice:
         blank_option: Please specify an age slice

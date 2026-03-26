@@ -1,0 +1,51 @@
+<div class="form__wrapper">
+  <%= hidden_field :authorization_handler, :handler_name, value: handler.handler_name %>
+
+  <div class="field">
+    <%= form.check_box :agree_to_be_nice %>
+    <%= form.label :agree_to_be_nice,
+                   t("agree_to_be_nice", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :agree_no_personal_data %>
+    <%= form.label :agree_no_personal_data,
+                   t("agree_no_personal_data", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %>
+  </div>
+
+  <fieldset class="field">
+    <legend>
+      <%= t("visited_regnbagshuset", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %>
+    </legend>
+    <% %w[yes no want_to].each do |option| %>
+      <div class="field">
+        <%= form.radio_button :visited_regnbagshuset, option %>
+        <%= form.label "visited_regnbagshuset_#{option}",
+                       t(option, scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options") %>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <div id="regnbagshuset-why-not-visited" style="display: none;">
+    <%= form.text_field :why_not_visited,
+                        label: t("why_not_visited", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %>
+  </div>
+
+  <script>
+    (function () {
+      var radios = document.querySelectorAll('input[name="authorization_handler[visited_regnbagshuset]"]');
+      var whyField = document.getElementById("regnbagshuset-why-not-visited");
+
+      function updateWhyField() {
+        var noRadio = document.querySelector('input[name="authorization_handler[visited_regnbagshuset]"][value="no"]');
+        whyField.style.display = (noRadio && noRadio.checked) ? "block" : "none";
+      }
+
+      radios.forEach(function (radio) {
+        radio.addEventListener("change", updateWhyField);
+      });
+
+      updateWhyField();
+    })();
+  </script>
+</div>
