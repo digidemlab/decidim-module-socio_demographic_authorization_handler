@@ -1,22 +1,39 @@
 <div class="form__wrapper">
   <%= hidden_field :authorization_handler, :handler_name, value: handler.handler_name %>
 
-  <%= form.check_box :agree_to_be_nice,
-                     label: t("agree_to_be_nice", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %>
+  <div>
+    <%= form.check_box :agree_to_be_nice,
+                       label: t("agree_to_be_nice", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields"),
+                       label_options: { class: "form__wrapper-checkbox-label" }
+                     %>
+  </div>
 
-  <%= form.check_box :agree_no_personal_data,
-                     label: t("agree_no_personal_data", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %>
+  <div>
+    <%= form.check_box :agree_no_personal_data,
+                       label: t("agree_no_personal_data", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields"),
+                       label_options: { class: "form__wrapper-checkbox-label" }
+                     %>
+  </div>
 
-  <%= form.collection_radio_buttons :visited_regnbagshuset,
-                                    [["yes",     t("yes",     scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options")],
-                                     ["no",      t("no",      scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options")],
-                                     ["want_to", t("want_to", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options")]],
-                                    :first, :last,
-                                    label: t("visited_regnbagshuset", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %>
+  <div>
+    <div><%= t("visited_regnbagshuset", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %></div>
+    <%= form.collection_radio_buttons :visited_regnbagshuset,
+                                      [["yes",     t("answer_yes", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options")],
+                                       ["no",      t("answer_no",  scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options")],
+                                       ["want_to", t("want_to",    scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options")]],
+                                      :first, :last do |b| %>
+      <div>
+        <%= b.radio_button %>
+        <%= b.label class: "form__wrapper-checkbox-label" %>
+      </div>
+    <% end %>
+  </div>
 
   <div id="regnbagshuset-why-not-visited" style="display: none;">
     <%= form.text_field :why_not_visited,
-                        label: t("why_not_visited", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %>
+                        label: t("why_not_visited", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields"),
+                        label_options: { class: "form__wrapper-checkbox-label" }
+                      %>
   </div>
 
   <script>

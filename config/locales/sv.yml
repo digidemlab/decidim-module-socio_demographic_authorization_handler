@@ -24,8 +24,8 @@ sv:
           visited_regnbagshuset: Jag har besökt regnbågshuset
           why_not_visited: Varför?
         visited_options:
-          yes: Ja
-          no: Nej
+          answer_yes: Ja
+          answer_no: Nej
           want_to: Jag vill!
     verifications:
       age_slice:
