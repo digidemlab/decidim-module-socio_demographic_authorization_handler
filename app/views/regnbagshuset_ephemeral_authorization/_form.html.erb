@@ -1,0 +1,56 @@
+<div class="form__wrapper">
+  <%= hidden_field :authorization_handler, :handler_name, value: handler.handler_name %>
+
+  <div>
+    <%= form.check_box :agree_to_be_nice,
+                       label: t("agree_to_be_nice", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields"),
+                       label_options: { class: "form__wrapper-checkbox-label" }
+                     %>
+  </div>
+
+  <div>
+    <%= form.check_box :agree_no_personal_data,
+                       label: t("agree_no_personal_data", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields"),
+                       label_options: { class: "form__wrapper-checkbox-label" }
+                     %>
+  </div>
+
+  <div>
+    <div><%= t("visited_regnbagshuset", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields") %></div>
+    <%= form.collection_radio_buttons :visited_regnbagshuset,
+                                      [["yes",     t("answer_yes", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options")],
+                                       ["no",      t("answer_no",  scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options")],
+                                       ["want_to", t("want_to",    scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.visited_options")]],
+                                      :first, :last do |b| %>
+      <div>
+        <%= b.radio_button %>
+        <%= b.label class: "form__wrapper-checkbox-label" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="regnbagshuset-why-not-visited" style="display: none;">
+    <%= form.text_field :why_not_visited,
+                        label: t("why_not_visited", scope: "decidim.authorization_handlers.regnbagshuset_authorization_handler.fields"),
+                        label_options: { class: "form__wrapper-checkbox-label" }
+                      %>
+  </div>
+
+  <script>
+    (function () {
+      var radios = document.querySelectorAll('input[name="authorization_handler[visited_regnbagshuset]"]');
+      var whyField = document.getElementById("regnbagshuset-why-not-visited");
+
+      function updateWhyField() {
+        var noRadio = document.querySelector('input[name="authorization_handler[visited_regnbagshuset]"][value="no"]');
+        whyField.style.display = (noRadio && noRadio.checked) ? "block" : "none";
+      }
+
+      radios.forEach(function (radio) {
+        radio.addEventListener("change", updateWhyField);
+      });
+
+      updateWhyField();
+    })();
+  </script>
+</div>

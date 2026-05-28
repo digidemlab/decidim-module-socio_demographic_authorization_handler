@@ -11,3 +11,8 @@ end
 Decidim::Verifications.register_workflow(:regnbagshuset_authorization_handler) do |workflow|
   workflow.form = "RegnbagshusetAuthorizationHandler"
 end
+
+Decidim::Verifications.register_workflow(:regnbagshuset_ephemeral_authorization_handler) do |workflow|
+  workflow.form = "RegnbagshusetEphemeralAuthorizationHandler"
+  workflow.ephemeral = true
+end
